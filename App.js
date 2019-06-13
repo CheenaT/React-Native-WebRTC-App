@@ -41,11 +41,6 @@ pc.onicecandidate = event => {
     ? sendMessage(yourId, JSON.stringify({ ice: event.candidate }))
     : console.log("Sent All Ice");
 };
-pc.onaddstream = event => this.setState({ videoURL: event.stream });
-sendMessage = (senderId, data) => {
-  var msg = database.push({ sender: senderId, message: data });
-  msg.remove();
-}
 readMessage = (data) => {
   var msg = JSON.parse(data.val().message);
   var sender = data.val().sender;
@@ -119,7 +114,11 @@ export default class App extends Component<Props> {
           // Log error
         });
     });
-
+    pc.onaddstream = event => this.setState({ videoURL: event.stream.toURL() });
+    sendMessage = (senderId, data) => {
+      var msg = database.push({ sender: senderId, message: data });
+      msg.remove();
+    }
   }
   showPartnerFace = () => {
     pc.createOffer().then(desc => {
