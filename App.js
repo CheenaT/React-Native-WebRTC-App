@@ -131,24 +131,27 @@ export default class App extends Component<Props> {
   }
   render() {
     return (
-      <ScrollView
+      <View
         style={{
-          flex: 1
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'space-between',
         }}
       >
-        {this.state.logs.type === "offer" ? (
-          <Text>{"sdp : " + this.state.logs.sdp}!</Text>
-        ) : (
-          <Text>{"event.candidate : " + this.state.logs.candidate}!</Text>
-        )}
         <RTCView streamURL={this.state.videoURL} style={styles.container} />
-        <Button
-          onPress={this.showPartnerFace}
-          title="Video call"
-          color="#841584"
-          accessibilityLabel=""
-        />
-      </ScrollView>
+        <View style={{ width: "45%", margin: 100, alignSelf: 'center', backgroundColor: "red", borderRadius: 4, color: 'white' }}>
+          <Button
+            onPress={this.showPartnerFace}
+            style={{
+                fontSize: '0.875rem',
+                fontFamily: 'Roboto',
+              }}
+            title="START VIDEO CALL"
+            color="#fff"
+            accessibilityLabel=""
+          />
+        </View>
+      </View>
     );
   }
 }
@@ -156,18 +159,11 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     left: 0,
-    top: 40,
+    top: 0,
     right: 0,
     bottom: 0,
-    width: 400,
-    height: 400,
-    backgroundColor: "#ccc",
-    borderWidth: 1,
-    borderColor: "#000"
-  },
-  containerStream: {
-    flex: 1,
-    backgroundColor: "#ccc",
+    height: 420,
+    backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#000"
   },
@@ -176,9 +172,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 10
   },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  }
 });
